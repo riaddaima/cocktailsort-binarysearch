@@ -1,10 +1,7 @@
 #include <iostream>
-#include <cmath>
 #include "header.h"
 
 using namespace std;
-
-int issorted = 0;
 
 int menu() {
   int choice;
@@ -14,42 +11,41 @@ int menu() {
   return choice;
 }
 
-void swap(int *a, int *b) {
+void _swap(int *a, int *b) {
   int temp = *a;
   *a = *b;
   *b = temp;
 }
 
-void cocktailsort(int arr[], int lenarr) {
-
-  int i, sorted = 0;
-  while (!sorted) {
-    for (i = 0; i < lenarr - 1; i++) {
-      if (arr[i] > arr[i + 1]) {
-        swap(&arr[i], &arr[i + 1]);
-        sorted = 0;
+void quicksort(int arr[], int low, int high) {
+  if (low < high) {
+    int i = low, j = high - 1;
+    int pivot = (low + high) / 2;
+    _swap(&arr[pivot], &arr[high]);
+    while (i <= j) {
+      if (arr[i] > arr[high]) {
+        if (arr[j] < arr[high]) {
+          _swap(&arr[i], &arr[j]);
+          i++;
+          j--;
+        } else {
+          j--;
+        }
+      } else {
+        i++;
       }
-      else
-        sorted = 1;
     }
-    for (i = lenarr - 1; i > 0; i--) {
-      if (arr[i] < arr[i - 1]) {
-        swap(&arr[i], &arr[i - 1]);
-        sorted = 0;
-      }
-      else
-        sorted = 1;
-    }
+    _swap(&arr[i], &arr[high]);
+    quicksort(arr, low, j);
+    quicksort(arr, i+1, high);
   }
-  issorted = 1;
-  cout<<">> Array sorted successfully!\n";
 }
 
 int binarysearch(int arr[], int lenarr, int target) {
 
   int L = 0, R = lenarr - 1;
   while (L <= R) {
-    int midpoint = L + floor((R - L) / 2);
+    int midpoint = (L + R) / 2;
     if (target == arr[midpoint])
       return midpoint;
     else if (target > arr[midpoint])

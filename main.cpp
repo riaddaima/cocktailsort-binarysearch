@@ -2,6 +2,8 @@
 #include "header.h"
 using namespace std;
 
+int issorted = 0;
+
 int main() {
     int arr[] = {4, 3, 10, 5, 8, 2};
     size_t lenarr = sizeof(arr) / sizeof(int);
@@ -13,8 +15,11 @@ int main() {
         case 1:
             if (issorted)
                 cout<<">> Array already sorted.\n";
-            else
-                cocktailsort(arr, lenarr);
+            else {
+                quicksort(arr, 0, lenarr-1);
+                issorted = 1;
+                cout<<">> Array sorted successfully!\n";
+            }
             break;
         //Binary Search.   
         case 2:
