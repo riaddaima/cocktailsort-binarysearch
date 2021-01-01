@@ -19,7 +19,7 @@ void _swap(int *a, int *b) {
 
 void quicksort(int arr[], int low, int high) {
   if (low < high) {
-    int i = low, j = high--;
+    int i = low, j = high - 1;
     int pivot = (low + high) / 2;
     _swap(&arr[pivot], &arr[high]);
     while (i <= j) {
