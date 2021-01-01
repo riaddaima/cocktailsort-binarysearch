@@ -19,15 +19,13 @@ void _swap(int *a, int *b) {
 
 void quicksort(int arr[], int low, int high) {
   if (low < high) {
-    int i = low, j = high - 1;
+    int i = low, j = high--;
     int pivot = (low + high) / 2;
     _swap(&arr[pivot], &arr[high]);
     while (i <= j) {
       if (arr[i] > arr[high]) {
         if (arr[j] < arr[high]) {
-          _swap(&arr[i], &arr[j]);
-          i++;
-          j--;
+          _swap(&arr[i++], &arr[j--]);
         } else {
           j--;
         }
@@ -37,7 +35,7 @@ void quicksort(int arr[], int low, int high) {
     }
     _swap(&arr[i], &arr[high]);
     quicksort(arr, low, j);
-    quicksort(arr, i+1, high);
+    quicksort(arr, ++i, high);
   }
 }
 
@@ -49,9 +47,9 @@ int binarysearch(int arr[], int lenarr, int target) {
     if (target == arr[midpoint])
       return midpoint;
     else if (target > arr[midpoint])
-      L = midpoint + 1;
+      L = midpoint++;
     else
-      R = midpoint - 1;
+      R = midpoint--;
   }
   return -1;
 }
